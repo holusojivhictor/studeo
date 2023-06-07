@@ -1,9 +1,11 @@
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
+import 'package:studeo/src/features/home/presentation/home_page.dart';
 
 enum AppRoute {
   onboarding,
   home,
+  item,
 }
 
 class AppRouter {
@@ -27,9 +29,31 @@ class AppRouter {
         path: '/',
         parentNavigatorKey: _rootNavigatorKey,
         name: AppRoute.home.name,
-        builder: (context, state) {
-          return const Placeholder();
-        },
+        pageBuilder: (context, state) => NoTransitionPage(
+          key: state.pageKey,
+          child: const HomePage(),
+        ),
+        routes: [
+          GoRoute(
+            path: 'item',
+            name: AppRoute.item.name,
+            pageBuilder: (context, state) {
+              return CustomTransitionPage(
+                key: state.pageKey,
+                child: const Placeholder(),
+                transitionDuration: const Duration(milliseconds: 700),
+                reverseTransitionDuration: const Duration(milliseconds: 700),
+                opaque: false,
+                transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                  return FadeTransition(
+                    opacity: animation,
+                    child: child,
+                  );
+                },
+              );
+            },
+          ),
+        ],
       ),
     ],
   );
