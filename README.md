@@ -21,7 +21,8 @@ $ dart run build_runner build
 
 ## Features
 
-- _Coming soon_
+- [ ] Integrate Unsplash API
+- [ ] Add tests
 
 _\*Studeo works on iOS, Android, and Web_
 
