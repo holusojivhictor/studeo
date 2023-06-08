@@ -1,7 +1,7 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:studeo/src/features/home/presentation/widgets/grid/interactive_grid.dart';
-import 'package:studeo/src/features/home/presentation/widgets/grid/masonry_grid.dart';
+import 'package:studeo/src/features/gallery/presentation/widgets/grid/interactive_grid.dart';
+import 'package:studeo/src/features/gallery/presentation/widgets/grid/masonry_grid.dart';
 
 class AnimatedInteractiveGrid extends StatefulWidget {
   const AnimatedInteractiveGrid({

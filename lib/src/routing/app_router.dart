@@ -1,10 +1,10 @@
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
-import 'package:studeo/src/features/home/presentation/home_page.dart';
+import 'package:studeo/src/features/gallery/presentation/gallery_page.dart';
 
 enum AppRoute {
   onboarding,
-  home,
+  gallery,
   item,
 }
 
@@ -28,10 +28,10 @@ class AppRouter {
       GoRoute(
         path: '/',
         parentNavigatorKey: _rootNavigatorKey,
-        name: AppRoute.home.name,
+        name: AppRoute.gallery.name,
         pageBuilder: (context, state) => NoTransitionPage(
           key: state.pageKey,
-          child: const HomePage(),
+          child: const GalleryPage(),
         ),
         routes: [
           GoRoute(

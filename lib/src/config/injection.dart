@@ -15,5 +15,9 @@ class Injection {
     final settingsService = SettingsService(loggingService);
     await settingsService.init();
     getIt.registerSingleton<SettingsService>(settingsService);
+
+    final unsplashService = UnsplashService();
+    await unsplashService.init();
+    getIt.registerSingleton<UnsplashService>(unsplashService);
   }
 }

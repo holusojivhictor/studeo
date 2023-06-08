@@ -5,13 +5,13 @@ import 'package:studeo/src/features/common/presentation/shimmer.dart';
 
 class PhotoTile extends StatelessWidget {
   const PhotoTile({
-    required this.imagePath,
+    required this.url,
     required this.heroTag,
     super.key,
     this.heroEnabled = true,
   });
 
-  final String imagePath;
+  final String url;
   final String heroTag;
   final bool heroEnabled;
 
@@ -33,7 +33,7 @@ class PhotoTile extends StatelessWidget {
             width: screenSize.width,
             height: screenSize.height,
             child: CachedNetworkImage(
-              imageUrl: imagePath,
+              imageUrl: url,
               fit: BoxFit.cover,
               placeholder: (_, __) => const FadeIn(child: Shimmer()),
             ),
