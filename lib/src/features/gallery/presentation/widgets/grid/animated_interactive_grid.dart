@@ -40,7 +40,6 @@ class _AnimatedInteractiveGridState extends State<AnimatedInteractiveGrid>
         final childrenSlice = slicedChildren[urlsSliceIndex];
 
         return MasonryGrid(
-          index: urlsSliceIndex,
           children: childrenSlice.toList(),
         );
       },

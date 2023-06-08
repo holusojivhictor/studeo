@@ -18,7 +18,7 @@ class GalleryState extends Equatable {
     this.items = const <Item>[],
     this.status = ImagesStatus.initial,
     this.currentPage = 0,
-  }) : currentPageSize = 10;
+  }) : currentPageSize = 20;
 
   final List<Item> items;
   final ImagesStatus status;

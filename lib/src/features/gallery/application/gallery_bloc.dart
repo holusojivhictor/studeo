@@ -18,7 +18,7 @@ class GalleryBloc extends Bloc<GalleryEvent, GalleryState> {
   }
 
   final GalleryService _galleryService;
-  static const int _pageSize = 10;
+  static const int _pageSize = 20;
 
   Future<void> _onInit(_Init event, Emitter<GalleryState> emit) async {
     emit(
