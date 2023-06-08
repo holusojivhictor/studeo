@@ -6,7 +6,7 @@ import 'package:studeo/src/features/gallery/presentation/widgets/grid/masonry_gr
 class AnimatedInteractiveGrid extends StatefulWidget {
   const AnimatedInteractiveGrid({
     super.key,
-    this.children = const [],
+    this.children = const <Widget>[],
     this.enableSnapping = true,
     this.crossAxisCount = 2,
     this.initialIndex = 0,

@@ -4,6 +4,8 @@ import 'package:studeo/src/config/injection.dart';
 import 'package:studeo/src/features/app_widget.dart';
 import 'package:studeo/src/features/common/application/bloc.dart';
 import 'package:studeo/src/features/common/infrastructure/infrastructure.dart';
+import 'package:studeo/src/features/gallery/application/gallery_bloc.dart';
+import 'package:studeo/src/features/gallery/infrastructure/gallery_service.dart';
 
 class StudeoApp extends StatelessWidget {
   const StudeoApp({super.key});
@@ -12,6 +14,12 @@ class StudeoApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider(
+          create: (ctx) {
+            final galleryService = getIt<GalleryService>();
+            return GalleryBloc(galleryService);
+          },
+        ),
         BlocProvider(
           create: (ctx) {
             final loggingService = getIt<LoggingService>();

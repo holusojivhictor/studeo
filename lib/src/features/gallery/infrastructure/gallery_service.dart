@@ -9,10 +9,12 @@ class GalleryService {
 
   UnsplashClient get client => _unsplash.client;
 
-  static const int perPage = 10;
+  Stream<Item> fetchItemsStream({required int page, int perPage = 10}) async* {
+    final photos = await client.photos.list(
+      page: page,
+      perPage: perPage,
+    ).goAndGet();
 
-  Stream<Item> fetchItemsStream({required int page}) async* {
-    final photos = await client.photos.list(page: page, perPage: page).goAndGet();
     for (final photo in photos) {
       final item = Item.fromPhoto(photo);
 

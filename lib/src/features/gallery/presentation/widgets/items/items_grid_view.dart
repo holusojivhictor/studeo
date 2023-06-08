@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:studeo/src/features/common/domain/constants.dart';
@@ -27,14 +29,17 @@ class ItemsGridView<T extends Item> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final child = AnimatedInteractiveGrid(
-      maxItemsPerViewport: 10,
-      children: [
+    final child = GridView(
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 3,
+        childAspectRatio: 1 / 2,
+      ),
+      children: <Widget>[
         ...items.map((T e) {
           return GestureDetector(
             onTap: () => onTap(e),
             child: PhotoTile(
-              heroTag: e.id,
+              heroTag: e.url,
               url: e.url,
             ),
           );
@@ -43,6 +48,7 @@ class ItemsGridView<T extends Item> extends StatelessWidget {
     );
 
     return SmartRefresher(
+      enablePullUp: true,
       enablePullDown: enablePullDown,
       header: const MaterialClassicHeader(),
       controller: refreshController,
