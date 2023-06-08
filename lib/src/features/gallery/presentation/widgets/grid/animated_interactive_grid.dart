@@ -1,12 +1,12 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:studeo/src/features/home/presentation/widgets/grid/interactive_grid.dart';
-import 'package:studeo/src/features/home/presentation/widgets/grid/masonry_grid.dart';
+import 'package:studeo/src/features/gallery/presentation/widgets/grid/interactive_grid.dart';
+import 'package:studeo/src/features/gallery/presentation/widgets/grid/masonry_grid.dart';
 
 class AnimatedInteractiveGrid extends StatefulWidget {
   const AnimatedInteractiveGrid({
     super.key,
-    this.children = const [],
+    this.children = const <Widget>[],
     this.enableSnapping = true,
     this.crossAxisCount = 2,
     this.initialIndex = 0,
@@ -40,7 +40,6 @@ class _AnimatedInteractiveGridState extends State<AnimatedInteractiveGrid>
         final childrenSlice = slicedChildren[urlsSliceIndex];
 
         return MasonryGrid(
-          index: urlsSliceIndex,
           children: childrenSlice.toList(),
         );
       },

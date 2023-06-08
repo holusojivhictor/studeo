@@ -5,13 +5,11 @@ import 'package:flutter/material.dart';
 
 class MasonryGrid extends StatefulWidget {
   const MasonryGrid({
-    required this.index,
     super.key,
     this.children = const [],
   });
 
   final List<Widget> children;
-  final int index;
 
   @override
   State<MasonryGrid> createState() => _MasonryGridState();
