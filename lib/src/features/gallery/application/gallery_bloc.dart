@@ -57,7 +57,10 @@ class GalleryBloc extends Bloc<GalleryEvent, GalleryState> {
     emit(state.copyWithCurrentPageUpdated(to: currentPage + 1));
 
     _galleryService
-        .fetchItemsStream(page: state.currentPage)
+        .fetchItemsStream(
+          page: state.currentPage,
+          perPage: state.currentPageSize,
+        )
         .listen((Item item) => add(GalleryEvent.imageLoaded(item: item)))
         .onDone(() => add(const GalleryEvent.imagesLoaded()));
   }

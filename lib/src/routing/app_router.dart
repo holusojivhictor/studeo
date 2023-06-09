@@ -1,15 +1,23 @@
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:studeo/src/features/gallery/presentation/gallery_page.dart';
+import 'package:studeo/src/features/item/domain/models/models.dart';
+import 'package:studeo/src/features/item/presentation/item_page.dart';
 
 enum AppRoute {
-  onboarding,
-  gallery,
-  item,
+  onboarding('/onboarding'),
+  gallery('/'),
+  item('/item');
+
+  const AppRoute(this.path);
+
+  final String path;
 }
 
 class AppRouter {
   static final _rootNavigatorKey = GlobalKey<NavigatorState>();
+
+  static const Duration duration = Duration(milliseconds: 700);
 
   static final GoRouter _router = GoRouter(
     initialLocation: '/',
@@ -38,18 +46,23 @@ class AppRouter {
             path: 'item',
             name: AppRoute.item.name,
             pageBuilder: (context, state) {
+              final args = state.extra! as ItemPageArgs;
+
               return CustomTransitionPage(
                 key: state.pageKey,
-                child: const Placeholder(),
-                transitionDuration: const Duration(milliseconds: 700),
-                reverseTransitionDuration: const Duration(milliseconds: 700),
-                opaque: false,
+                child: ItemPage(
+                  item: args.item,
+                  index: args.index,
+                ),
                 transitionsBuilder: (context, animation, secondaryAnimation, child) {
                   return FadeTransition(
                     opacity: animation,
                     child: child,
                   );
                 },
+                transitionDuration: duration,
+                reverseTransitionDuration: duration,
+                opaque: false,
               );
             },
           ),

@@ -67,7 +67,9 @@ class Item extends Equatable {
   final PhotoLinks links;
   final List<Tag>? tags;
 
-  String get url => urls.regular.toString();
+  String get regular => urls.regular.toString();
+
+  String get full => urls.full.toString();
 
   double get ratio => width / height;
 

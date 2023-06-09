@@ -1,7 +1,5 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:studeo/src/features/common/domain/constants.dart';
 import 'package:studeo/src/features/gallery/domain/models/models.dart';
 import 'package:studeo/src/features/gallery/presentation/widgets/grid/grid.dart';
 import 'package:studeo/src/features/gallery/presentation/widgets/items/photo_tile.dart';
@@ -9,7 +7,6 @@ import 'package:studeo/src/features/gallery/presentation/widgets/items/photo_til
 class ItemsGridView<T extends Item> extends StatefulWidget {
   const ItemsGridView({
     required this.items,
-    required this.refreshController,
     required this.onTap,
     super.key,
     this.enablePullDown = true,
@@ -21,14 +18,11 @@ class ItemsGridView<T extends Item> extends StatefulWidget {
 
   final bool enablePullDown;
   final List<T> items;
-  final RefreshController refreshController;
   final VoidCallback? onRefresh;
   final VoidCallback? onLoadMore;
-  final void Function(T) onTap;
+  final void Function(T, int) onTap;
   final int crossAxisCount;
   final int maxItemsPerViewport;
-
-  static List<String> test = images;
 
   @override
   State<ItemsGridView<T>> createState() => _ItemsGridViewState<T>();
@@ -36,26 +30,29 @@ class ItemsGridView<T extends Item> extends StatefulWidget {
 
 class _ItemsGridViewState<T extends Item> extends State<ItemsGridView<T>> {
   late List<Widget> viewports;
-  static Duration snapDuration = const Duration(milliseconds: 700);
+  int _upperOffset = 0;
 
   List<Widget> _generateViewports() {
-    final slicedChildren = widget.items.slices(widget.maxItemsPerViewport).toList();
+    final items = widget.items;
+    final slicedChildren = items.slices(widget.maxItemsPerViewport).toList();
 
     return List.generate(
-      slicedChildren.length, (urlsSliceIndex) {
+      slicedChildren.length,
+      (urlsSliceIndex) {
         final childrenSlice = slicedChildren[urlsSliceIndex];
 
         return MasonryGrid(
           children: <Widget>[
             ...childrenSlice.map((T e) {
+              final index = items.indexOf(e);
               return GestureDetector(
-                onTap: () => widget.onTap(e),
+                onTap: () => widget.onTap(e, index),
                 child: PhotoTile(
-                  heroTag: e.id,
-                  url: e.url,
+                  heroTag: 'hero $index',
+                  url: e.regular,
                 ),
               );
-            })
+            }),
           ],
         );
       },
@@ -64,16 +61,17 @@ class _ItemsGridViewState<T extends Item> extends State<ItemsGridView<T>> {
 
   @override
   void initState() {
-    super.initState();
     viewports = _generateViewports();
+    super.initState();
   }
 
   @override
   void didUpdateWidget(covariant ItemsGridView<T> oldWidget) {
-      if (oldWidget.crossAxisCount != widget.crossAxisCount ||
-          oldWidget.maxItemsPerViewport != widget.maxItemsPerViewport) {
-        viewports = _generateViewports();
-      }
+    if (oldWidget.crossAxisCount != widget.crossAxisCount ||
+        oldWidget.maxItemsPerViewport != widget.maxItemsPerViewport ||
+        oldWidget.items.length != widget.items.length) {
+      viewports = _generateViewports();
+    }
     super.didUpdateWidget(oldWidget);
   }
 
@@ -84,12 +82,13 @@ class _ItemsGridViewState<T extends Item> extends State<ItemsGridView<T>> {
     return InteractiveGrid(
       viewportSize: screenSize,
       crossAxisCount: widget.crossAxisCount,
+      snapDuration: const Duration(milliseconds: 700),
       onChanged: (int offset) {
-        if (offset > 0) {
+        if (offset > _upperOffset) {
+          _upperOffset = offset;
           widget.onLoadMore?.call();
         }
       },
-      snapDuration: snapDuration,
       children: viewports,
     );
   }

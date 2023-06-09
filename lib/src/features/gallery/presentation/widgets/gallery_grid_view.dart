@@ -6,13 +6,15 @@ import 'package:studeo/src/features/gallery/application/gallery_bloc.dart';
 import 'package:studeo/src/features/gallery/domain/models/models.dart';
 import 'package:studeo/src/features/gallery/presentation/widgets/items/items_grid_view.dart';
 
+typedef ValueChangedCallback<T, int> = void Function(T value, int index);
+
 class GalleryGridView extends StatefulWidget {
   const GalleryGridView({
     required this.onItemTapped,
     super.key,
   });
 
-  final ValueChanged<Item> onItemTapped;
+  final ValueChangedCallback<Item, int> onItemTapped;
 
   @override
   State<GalleryGridView> createState() => _GalleryGridViewState();
@@ -35,13 +37,12 @@ class _GalleryGridViewState extends State<GalleryGridView> {
       listenWhen: (previous, current) => previous.status != current.status,
       listener: (ctx, state) {
         if (state.status == ImagesStatus.loaded) {
-          refreshController..refreshCompleted(resetFooterState: true)..loadComplete();
+          refreshController..refreshCompleted()..loadComplete();
         }
       },
       buildWhen: buildWhen,
       builder: (ctx, state) {
         return ItemsGridView<Item>(
-          refreshController: refreshController,
           items: state.items,
           onTap: onItemTapped,
           onRefresh: () {
