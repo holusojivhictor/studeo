@@ -11,6 +11,7 @@ class AppSettings with _$AppSettings {
     required AppLanguageType appLanguage,
     required bool isFirstInstall,
     required bool doubleBackToClose,
+    required bool complexGridTile,
     required AutoThemeModeType themeMode,
   }) = _AppSettings;
 

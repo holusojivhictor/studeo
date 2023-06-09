@@ -3,11 +3,14 @@ import 'package:go_router/go_router.dart';
 import 'package:studeo/src/features/gallery/presentation/gallery_page.dart';
 import 'package:studeo/src/features/item/domain/models/models.dart';
 import 'package:studeo/src/features/item/presentation/item_page.dart';
+import 'package:studeo/src/features/settings/presentation/settings_page.dart';
+import 'package:studeo/src/utils/page_utils.dart';
 
 enum AppRoute {
   onboarding('/onboarding'),
   gallery('/'),
-  item('/item');
+  item('/item'),
+  settings('/settings');
 
   const AppRoute(this.path);
 
@@ -48,21 +51,27 @@ class AppRouter {
             pageBuilder: (context, state) {
               final args = state.extra! as ItemPageArgs;
 
-              return CustomTransitionPage(
-                key: state.pageKey,
+              return buildPageWithDefaultTransition<void>(
+                context: context,
+                state: state,
                 child: ItemPage(
                   item: args.item,
                   index: args.index,
                 ),
-                transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                  return FadeTransition(
-                    opacity: animation,
-                    child: child,
-                  );
-                },
                 transitionDuration: duration,
                 reverseTransitionDuration: duration,
                 opaque: false,
+              );
+            },
+          ),
+          GoRoute(
+            path: '/settings',
+            name: AppRoute.settings.name,
+            pageBuilder: (context, state) {
+              return buildPageWithDefaultTransition<void>(
+                context: context,
+                state: state,
+                child: const SettingsPage(),
               );
             },
           ),

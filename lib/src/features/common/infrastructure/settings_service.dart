@@ -13,6 +13,7 @@ class SettingsService {
   final String _appLanguageKey = 'AppLanguage';
   final String _isFirstInstallKey = 'FirstInstall';
   final String _doubleBackToCloseKey = 'DoubleBackToClose';
+  final String _complexGridTileKey = 'ComplexGridTile';
   final String _autoThemeModeKey = 'AutoThemeMode';
 
   bool _initialized = false;
@@ -36,6 +37,10 @@ class SettingsService {
 
   set doubleBackToClose(bool value) => _prefs.setBool(_doubleBackToCloseKey, value);
 
+  bool get complexGridTile => _prefs.getBool(_complexGridTileKey)!;
+
+  set complexGridTile(bool value) => _prefs.setBool(_complexGridTileKey, value);
+
   AutoThemeModeType get autoThemeMode => AutoThemeModeType.values[_prefs.getInt(_autoThemeModeKey)!];
 
   set autoThemeMode(AutoThemeModeType themeMode) => _prefs.setInt(_autoThemeModeKey, themeMode.index);
@@ -45,6 +50,7 @@ class SettingsService {
     appLanguage: language,
     isFirstInstall: isFirstInstall,
     doubleBackToClose: doubleBackToClose,
+    complexGridTile: complexGridTile,
     themeMode: autoThemeMode,
   );
 
@@ -77,6 +83,11 @@ class SettingsService {
     if (_prefs.get(_doubleBackToCloseKey) == null) {
       _logger.info(runtimeType, 'Double back to close set to default (true)');
       doubleBackToClose = true;
+    }
+
+    if (_prefs.get(_complexGridTileKey) == null) {
+      _logger.info(runtimeType, 'Complex grid tile set to default (true)');
+      complexGridTile = true;
     }
 
     if (_prefs.get(_autoThemeModeKey) == null) {
