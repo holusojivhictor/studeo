@@ -12,6 +12,8 @@ class Item extends Equatable {
     required this.height,
     required this.color,
     required this.blurHash,
+    required this.author,
+    required this.creatorPage,
     required this.downloads,
     required this.likes,
     required this.description,
@@ -28,6 +30,8 @@ class Item extends Equatable {
         height = photo.height,
         color = photo.color,
         blurHash = photo.blurHash,
+        author = photo.user.name,
+        creatorPage = photo.user.links.html.toString(),
         downloads = photo.downloads,
         likes = photo.likes,
         description = photo.description,
@@ -43,6 +47,8 @@ class Item extends Equatable {
         height = json['height'] as int,
         color = json['color'] as String,
         blurHash = json['blur_hash'] as String?,
+        author = json['author'] as String,
+        creatorPage = json['creatorPage'] as String,
         downloads = json['downloads'] as int?,
         likes = json['likes'] as int,
         description = json['description'] as String?,
@@ -61,6 +67,8 @@ class Item extends Equatable {
   final int height;
   final String color;
   final String? blurHash;
+  final String author;
+  final String creatorPage;
   final int? downloads;
   final int likes;
   final String? description;
@@ -70,6 +78,8 @@ class Item extends Equatable {
   String get regular => urls.regular.toString();
 
   String get full => urls.full.toString();
+
+  String get desc => description?.toUpperCase() ?? '';
 
   double get ratio => width / height;
 
@@ -83,6 +93,8 @@ class Item extends Equatable {
       'height': height,
       'color': color,
       'blur_hash': blurHash,
+      'author': author,
+      'creatorPage': creatorPage,
       'downloads': downloads,
       'likes': likes,
       'description': description,
@@ -104,6 +116,8 @@ class Item extends Equatable {
     height,
     color,
     blurHash,
+    author,
+    creatorPage,
     downloads,
     likes,
     description,

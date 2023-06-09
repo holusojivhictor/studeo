@@ -9,4 +9,11 @@ abstract class Constants {
   static const languagesMap = {
     AppLanguageType.english: LanguageModel('en', 'US'),
   };
+
+  static const String unsplashLink = 'https://unsplash.com/';
+}
+
+abstract class RegExpConstants {
+  static const String linkSuffix = r'(\)|]|,|\*)(.)*$';
+  static const String number = '[0-9]+';
 }

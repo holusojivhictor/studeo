@@ -23,6 +23,7 @@ dependencies:
     git:
       url: https://github.com/holusojivhictor/flutter_fadein
       ref: master
+  flutter_inappwebview: ^6.0.0-beta.23
   fluttertoast: ^8.2.2
   freezed_annotation: ^2.2.0
   get_it: ^7.6.0
@@ -34,6 +35,7 @@ dependencies:
   shared_preferences: ^2.1.1
   sprintf: ^7.0.0
   unsplash_client: ^2.1.0+3
+  url_launcher: ^6.1.11
   version_tracker:
     git:
       url: https://github.com/holusojivhictor/version_tracker
