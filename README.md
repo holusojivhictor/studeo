@@ -21,7 +21,11 @@ $ dart run build_runner build
 
 ## Features
 
-- [ ] Integrate Unsplash API
+- Browse an endless list of HD images.
+- Preview image tags and other available data.
+
+## Coming
+
 - [ ] Add tests
 
 _\*Studeo works on iOS, Android, and Web_
