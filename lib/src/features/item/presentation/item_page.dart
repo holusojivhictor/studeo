@@ -145,7 +145,7 @@ class LinkableSpan extends StatelessWidget {
             text: author,
             style: linkStyle,
             recognizer: TapGestureRecognizer()
-              ..onTap = () => LinkUtils.launch(page),
+              ..onTap = () => LinkUtils.launch('$page$referral'),
           ),
           TextSpan(
             text: ' on ',
