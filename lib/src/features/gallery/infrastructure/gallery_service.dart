@@ -15,6 +15,9 @@ class GalleryService {
       perPage: perPage,
     ).goAndGet();
 
+    final ids = photos.map((e) => e.id).toSet();
+    photos.retainWhere((x) => ids.remove(x.id));
+
     for (final photo in photos) {
       final item = Item.fromPhoto(photo);
 

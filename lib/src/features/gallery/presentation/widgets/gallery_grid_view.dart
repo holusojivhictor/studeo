@@ -35,13 +35,12 @@ class _GalleryGridViewState extends State<GalleryGridView> {
       listenWhen: (previous, current) => previous.status != current.status,
       listener: (ctx, state) {
         if (state.status == ImagesStatus.loaded) {
-          refreshController..refreshCompleted(resetFooterState: true)..loadComplete();
+          refreshController..refreshCompleted()..loadComplete();
         }
       },
       buildWhen: buildWhen,
       builder: (ctx, state) {
         return ItemsGridView<Item>(
-          refreshController: refreshController,
           items: state.items,
           onTap: onItemTapped,
           onRefresh: () {
