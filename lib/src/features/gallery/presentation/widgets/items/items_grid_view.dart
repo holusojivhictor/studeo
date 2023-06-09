@@ -20,7 +20,7 @@ class ItemsGridView<T extends Item> extends StatefulWidget {
   final List<T> items;
   final VoidCallback? onRefresh;
   final VoidCallback? onLoadMore;
-  final void Function(T) onTap;
+  final void Function(T, int) onTap;
   final int crossAxisCount;
   final int maxItemsPerViewport;
 
@@ -29,12 +29,55 @@ class ItemsGridView<T extends Item> extends StatefulWidget {
 }
 
 class _ItemsGridViewState<T extends Item> extends State<ItemsGridView<T>> {
+  late List<Widget> viewports;
   int _upperOffset = 0;
+
+  List<Widget> _generateViewports() {
+    final items = widget.items;
+    final slicedChildren = items.slices(widget.maxItemsPerViewport).toList();
+
+    return List.generate(
+      slicedChildren.length,
+      (urlsSliceIndex) {
+        final childrenSlice = slicedChildren[urlsSliceIndex];
+
+        return MasonryGrid(
+          children: <Widget>[
+            ...childrenSlice.map((T e) {
+              final index = items.indexOf(e);
+              return GestureDetector(
+                onTap: () => widget.onTap(e, index),
+                child: PhotoTile(
+                  heroTag: 'hero $index',
+                  url: e.regular,
+                ),
+              );
+            }),
+          ],
+        );
+      },
+    );
+  }
+
+  @override
+  void initState() {
+    viewports = _generateViewports();
+    super.initState();
+  }
+
+  @override
+  void didUpdateWidget(covariant ItemsGridView<T> oldWidget) {
+    if (oldWidget.crossAxisCount != widget.crossAxisCount ||
+        oldWidget.maxItemsPerViewport != widget.maxItemsPerViewport ||
+        oldWidget.items.length != widget.items.length) {
+      viewports = _generateViewports();
+    }
+    super.didUpdateWidget(oldWidget);
+  }
 
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
-    final slicedChildren = widget.items.slices(widget.maxItemsPerViewport).toList();
 
     return InteractiveGrid(
       viewportSize: screenSize,
@@ -42,30 +85,11 @@ class _ItemsGridViewState<T extends Item> extends State<ItemsGridView<T>> {
       snapDuration: const Duration(milliseconds: 700),
       onChanged: (int offset) {
         if (offset > _upperOffset) {
-          setState(() => _upperOffset = offset);
+          _upperOffset = offset;
           widget.onLoadMore?.call();
         }
       },
-      children: List.generate(
-        slicedChildren.length,
-        (urlsSliceIndex) {
-          final childrenSlice = slicedChildren[urlsSliceIndex];
-
-          return MasonryGrid(
-            children: <Widget>[
-              ...childrenSlice.map((T e) {
-                return GestureDetector(
-                  onTap: () => widget.onTap(e),
-                  child: PhotoTile(
-                    heroTag: 'hero ${e.id}',
-                    url: e.regular,
-                  ),
-                );
-              }),
-            ],
-          );
-        },
-      ),
+      children: viewports,
     );
   }
 }

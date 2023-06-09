@@ -35,8 +35,8 @@ class _GalleryPageState extends State<GalleryPage> {
     );
   }
 
-  void onItemTapped(Item item) {
-    final args = ItemPageArgs(item: item);
+  void onItemTapped(Item item, int index) {
+    final args = ItemPageArgs(item: item, index: index);
 
     context.go(AppRoute.item.path, extra: args);
   }

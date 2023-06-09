@@ -52,6 +52,7 @@ class AppRouter {
                 key: state.pageKey,
                 child: ItemPage(
                   item: args.item,
+                  index: args.index,
                 ),
                 transitionsBuilder: (context, animation, secondaryAnimation, child) {
                   return FadeTransition(

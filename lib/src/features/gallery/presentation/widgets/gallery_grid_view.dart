@@ -6,13 +6,15 @@ import 'package:studeo/src/features/gallery/application/gallery_bloc.dart';
 import 'package:studeo/src/features/gallery/domain/models/models.dart';
 import 'package:studeo/src/features/gallery/presentation/widgets/items/items_grid_view.dart';
 
+typedef ValueChangedCallback<T, int> = void Function(T value, int index);
+
 class GalleryGridView extends StatefulWidget {
   const GalleryGridView({
     required this.onItemTapped,
     super.key,
   });
 
-  final ValueChanged<Item> onItemTapped;
+  final ValueChangedCallback<Item, int> onItemTapped;
 
   @override
   State<GalleryGridView> createState() => _GalleryGridViewState();
