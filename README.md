@@ -57,5 +57,5 @@ _\*Studeo works on iOS, Android, and Web_
 [license_link]: https://opensource.org/licenses/MIT
 [very_good_analysis_badge]: https://img.shields.io/badge/style-very_good_analysis-B22C89.svg
 [very_good_analysis_link]: https://pub.dev/packages/very_good_analysis
-[app_distribution_link]: https://
+[app_distribution_link]: https://appdistribution.firebase.dev/i/0f2e18cdb7b17a95
 [unsplash_join]: https://unsplash.com/oauth/applications
