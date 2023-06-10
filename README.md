@@ -17,10 +17,8 @@ Download the apk here:
 
 - Browse an endless list of HD images.
 - Preview image tags and other available data.
-
-## Coming
-
-- [ ] Add tests
+- Complex staggered grid span.
+- Multiple theming options. 
 
 ## Running the app 🚀
 

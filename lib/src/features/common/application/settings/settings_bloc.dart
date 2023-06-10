@@ -34,7 +34,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
       const SettingsState.init().copyWith(
         currentTheme: settings.appTheme,
         currentLanguage: settings.appLanguage,
-        appVersion: _deviceInfoService.version,
+        appVersion: _deviceInfoService.versionWithBuildNumber,
         doubleBackToClose: settings.doubleBackToClose,
         complexGridTile: settings.complexGridTile,
         themeMode: settings.themeMode,
