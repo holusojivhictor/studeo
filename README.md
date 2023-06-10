@@ -7,6 +7,12 @@ Studeo mobile app.
 
 ---
 
+## App distribution
+
+Download the apk here:
+
+- [Firebase App Distribution][app_distribution_link]
+
 ## Features
 
 - Browse an endless list of HD images.
@@ -51,4 +57,5 @@ _\*Studeo works on iOS, Android, and Web_
 [license_link]: https://opensource.org/licenses/MIT
 [very_good_analysis_badge]: https://img.shields.io/badge/style-very_good_analysis-B22C89.svg
 [very_good_analysis_link]: https://pub.dev/packages/very_good_analysis
+[app_distribution_link]: https://
 [unsplash_join]: https://unsplash.com/oauth/applications
