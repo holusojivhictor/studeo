@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:studeo/src/features/common/application/bloc.dart';
 import 'package:studeo/src/features/gallery/application/gallery_bloc.dart';
 import 'package:studeo/src/features/gallery/domain/models/models.dart';
 import 'package:studeo/src/features/gallery/presentation/widgets/items/items_grid_view.dart';
@@ -33,24 +34,32 @@ class _GalleryGridViewState extends State<GalleryGridView> {
   Widget build(BuildContext context) {
     final onItemTapped = widget.onItemTapped;
 
-    return BlocConsumer<GalleryBloc, GalleryState>(
-      listenWhen: (previous, current) => previous.status != current.status,
-      listener: (ctx, state) {
-        if (state.status == ImagesStatus.loaded) {
-          refreshController..refreshCompleted()..loadComplete();
-        }
-      },
-      buildWhen: buildWhen,
-      builder: (ctx, state) {
-        return ItemsGridView<Item>(
-          items: state.items,
-          onTap: onItemTapped,
-          onRefresh: () {
-            HapticFeedback.lightImpact();
-            context.read<GalleryBloc>().add(const GalleryEvent.refresh());
+    return BlocBuilder<SettingsBloc, SettingsState>(
+      buildWhen: (previous, current) =>
+          previous.complexGridTile != current.complexGridTile,
+      builder: (context, s) {
+        return BlocConsumer<GalleryBloc, GalleryState>(
+          listenWhen: (previous, current) => previous.status != current.status,
+          listener: (ctx, state) {
+            if (state.status == ImagesStatus.loaded) {
+              refreshController..refreshCompleted()..loadComplete();
+            }
           },
-          onLoadMore: () {
-            context.read<GalleryBloc>().add(const GalleryEvent.loadMore());
+          buildWhen: buildWhen,
+          builder: (ctx, state) {
+            return ItemsGridView(
+              enableMasonGrid: s.complexGridTile,
+              refreshController: refreshController,
+              items: state.items,
+              onTap: onItemTapped,
+              onRefresh: () {
+                HapticFeedback.lightImpact();
+                context.read<GalleryBloc>().add(const GalleryEvent.refresh());
+              },
+              onLoadMore: () {
+                context.read<GalleryBloc>().add(const GalleryEvent.loadMore());
+              },
+            );
           },
         );
       },

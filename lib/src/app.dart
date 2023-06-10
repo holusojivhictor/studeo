@@ -32,6 +32,17 @@ class StudeoApp extends StatelessWidget {
             )..add(const AppEvent.init());
           },
         ),
+        BlocProvider(
+          create: (ctx) {
+            final settingsService = getIt<SettingsService>();
+            final deviceInfoService = getIt<DeviceInfoService>();
+            return SettingsBloc(
+              settingsService,
+              deviceInfoService,
+              ctx.read<AppBloc>(),
+            )..add(const SettingsEvent.init());
+          },
+        ),
       ],
       child: BlocBuilder<AppBloc, AppState>(
         builder: (ctx, state) => const AppWidget(),
