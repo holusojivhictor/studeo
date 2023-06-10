@@ -2,6 +2,8 @@ import 'package:equatable/equatable.dart';
 import 'package:studeo/src/extensions/extensions.dart';
 import 'package:unsplash_client/unsplash_client.dart';
 
+final empty = Uri();
+
 class Item extends Equatable {
   const Item({
     required this.id,
@@ -58,6 +60,34 @@ class Item extends Equatable {
             ?.cast<Map<String, dynamic>>()
             .map(Tag.fromJson)
             .toList();
+
+  Item.empty()
+      : id = '',
+        createdAt = DateTime.now(),
+        updatedAt = DateTime.now(),
+        urls = PhotoUrls(
+          raw: empty,
+          full: empty,
+          regular: empty,
+          small: empty,
+          thumb: empty,
+        ),
+        width = 0,
+        height = 0,
+        color = '',
+        blurHash = null,
+        author = '',
+        creatorPage = '',
+        downloads = null,
+        likes = 0,
+        description = null,
+        links = PhotoLinks(
+          self: empty,
+          html: empty,
+          download: empty,
+          downloadLocation: empty,
+        ),
+        tags = null;
 
   final String id;
   final DateTime createdAt;
