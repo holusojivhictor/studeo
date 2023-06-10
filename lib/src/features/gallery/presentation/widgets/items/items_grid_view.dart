@@ -73,7 +73,8 @@ class _ItemsGridViewState<T extends Item> extends State<ItemsGridView<T>> {
   @override
   void didUpdateWidget(covariant ItemsGridView<T> oldWidget) {
     if (widget.enableMasonGrid) {
-      if (oldWidget.crossAxisCount != widget.crossAxisCount ||
+      if (oldWidget.enableMasonGrid != widget.enableMasonGrid ||
+          oldWidget.crossAxisCount != widget.crossAxisCount ||
           oldWidget.maxItemsPerViewport != widget.maxItemsPerViewport ||
           oldWidget.items.length != widget.items.length) {
         viewports = _generateViewports();
@@ -92,7 +93,10 @@ class _ItemsGridViewState<T extends Item> extends State<ItemsGridView<T>> {
       header: const MaterialClassicHeader(),
       controller: widget.refreshController,
       onLoading: widget.onLoadMore,
-      onRefresh: widget.onRefresh,
+      onRefresh: () {
+        widget.onRefresh?.call();
+        _upperOffset = 0;
+      },
       child: GridView.builder(
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: widget.crossAxisCount,

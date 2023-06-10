@@ -8,6 +8,7 @@ class GalleryAppBar extends AppBar {
   }) : super(
           elevation: 0,
           scrolledUnderElevation: 0,
+          automaticallyImplyLeading: false,
           actions: [
             const SettingsIconButton(),
           ],

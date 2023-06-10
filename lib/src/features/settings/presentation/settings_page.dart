@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:studeo/src/features/settings/presentation/widgets/settings_card.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return const Scaffold(
+      body: SafeArea(
+        child: AppSettingsCard(),
+      ),
+    );
   }
 }

@@ -85,4 +85,6 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   }
 
   bool get doubleBackToClose => _settingsService.doubleBackToClose;
+
+  bool get isFirstInstall => _settingsService.isFirstInstall;
 }

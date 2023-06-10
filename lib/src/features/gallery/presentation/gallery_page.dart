@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:studeo/src/extensions/extensions.dart';
 import 'package:studeo/src/features/common/application/bloc.dart';
-import 'package:studeo/src/features/gallery/application/gallery_bloc.dart';
 import 'package:studeo/src/features/gallery/domain/models/models.dart';
 import 'package:studeo/src/features/gallery/presentation/widgets/app_bar/gallery_app_bar.dart';
 import 'package:studeo/src/features/gallery/presentation/widgets/gallery_grid_view.dart';
@@ -19,16 +18,7 @@ class GalleryPage extends StatefulWidget {
 }
 
 class _GalleryPageState extends State<GalleryPage> {
-  bool _didChangeDependencies = false;
   DateTime? backButtonPressTime;
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    if (_didChangeDependencies) return;
-    _didChangeDependencies = true;
-    context.read<GalleryBloc>().add(const GalleryEvent.init());
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +30,7 @@ class _GalleryPageState extends State<GalleryPage> {
         builder: (context, state) {
           return Scaffold(
             extendBody: true,
+            extendBodyBehindAppBar: true,
             appBar: GalleryAppBar(
               backgroundColor: Colors.transparent,
             ),

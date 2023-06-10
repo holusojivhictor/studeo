@@ -5,6 +5,7 @@ const String referral = '?utm_source=studeo&utm_medium=referral';
 
 abstract class Constants {
   static const na = 'N/A';
+  static const double splashLogoDimension = 195;
   static const Duration kAnimationDuration = Duration(milliseconds: 200);
 
   /// Languages map
