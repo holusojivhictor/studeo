@@ -1,17 +1,19 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_fadein/flutter_fadein.dart';
-import 'package:studeo/src/features/common/presentation/shimmer.dart';
+import 'package:studeo/src/features/common/presentation/preview.dart';
 
 class PhotoTile extends StatelessWidget {
   const PhotoTile({
     required this.url,
+    required this.hash,
     required this.heroTag,
     super.key,
     this.heroEnabled = true,
   });
 
   final String url;
+  final String? hash;
   final String heroTag;
   final bool heroEnabled;
 
@@ -35,7 +37,11 @@ class PhotoTile extends StatelessWidget {
             child: CachedNetworkImage(
               imageUrl: url,
               fit: BoxFit.cover,
-              placeholder: (_, __) => const FadeIn(child: Shimmer()),
+              placeholder: (_, __) => FadeIn(
+                child: PreviewPlaceHolder(
+                  hash: hash,
+                ),
+              ),
             ),
           ),
         ),
