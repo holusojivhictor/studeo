@@ -55,6 +55,7 @@ class _ItemsGridViewState<T extends Item> extends State<ItemsGridView<T>> {
                 child: PhotoTile(
                   heroTag: 'hero $index',
                   url: e.regular,
+                  hash: e.blurHash,
                 ),
               );
             }),
@@ -109,6 +110,7 @@ class _ItemsGridViewState<T extends Item> extends State<ItemsGridView<T>> {
             child: PhotoTile(
               heroTag: 'hero $index',
               url: widget.items[index].regular,
+              hash: widget.items[index].blurHash,
             ),
           );
         },
